@@ -1,0 +1,33 @@
+DROP SCHEMA IF EXISTS spotify;
+CREATE SCHEMA spotify;
+USE spotify;
+
+CREATE TABLE IF NOT EXISTS `Spotifysong` (
+	`SongId` BIGINT NOT NULL,
+	`TrackName` VARCHAR(255) NOT NULL,
+	`Artist` VARCHAR(255) NOT NULL,
+	`Genre` VARCHAR(255) NOT NULL,
+	`Popularity` INTEGER NOT NULL,
+	`metricId` INTEGER NOT NULL,
+	PRIMARY KEY(`SongId`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `Metrics` (
+	`metricId` BIGINT NOT NULL AUTO_INCREMENT,
+	`bpm` INTEGER NOT NULL,
+	`energy` INTEGER NOT NULL,
+	`danceability` INTEGER NOT NULL,
+	`loudness` INTEGER NOT NULL,
+	`liveness` INTEGER NOT NULL,
+	`valence` INTEGER NOT NULL,
+	`length` INTEGER NOT NULL,
+	`acousticness` INTEGER NOT NULL,
+	`speechiness` INTEGER NOT NULL,
+	PRIMARY KEY(`metricId`)
+);
+
+
+ALTER TABLE `Metrics`
+ADD FOREIGN KEY(`metricId`) REFERENCES `Spotifysong`(`SongId`)
+ON UPDATE CASCADE ON DELETE CASCADE;
